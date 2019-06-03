@@ -1,7 +1,6 @@
-<template >
+<template>
 
-<h2>Sample Component</h2>
-
+<h1>Sample</h1>
 </template>
 <script>
 export default {

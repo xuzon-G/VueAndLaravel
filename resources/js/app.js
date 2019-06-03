@@ -23,6 +23,7 @@ Vue.use(VueRouter)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 const example=require('./components/ExampleComponent.vue');
 const sample=require('./components/sampleComponent.vue');
+const tasks=require('./components/TaskComponent.vue');
 const routes=[
 {
     path:'/example',
@@ -33,10 +34,16 @@ const routes=[
 {
     path:'/sample',
     component:(sample).default
+},
+{
+    path:'/',
+    component:(tasks).default
 }
+
 ];
 
 //Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// Vue.component('tasks', require('./components/TaskComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
