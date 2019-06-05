@@ -17,7 +17,7 @@ class TodoController extends Controller
     public function index()
     {
         $tasks=Todo::all();
-     return $request->json(200,$tasks);
+    return response()->json($tasks, 200);
     }
 
     /**

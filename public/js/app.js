@@ -1753,20 +1753,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {
+      tasks: {}
+    };
   },
   methods: {},
-  mounted: function mounted() {
+  created: function created() {
     var _this = this;
 
     // console.log('task component loaded');
-    axios.get('127.0.0.1:8000/tasks').then(function (response) {
+    axios.get('http://127.0.0.1:8000/tasks').then(function (response) {
       return _this.tasks = response.data;
     })["catch"](function (error) {
       return console.log(error);
     });
+    console.log("task component loaded");
   }
 });
 
@@ -37124,27 +37142,81 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "card" }, [
+    _c("div", { staticClass: "card-header bg-primary" }, [
+      _vm._v("\n        Header\n    ")
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-body" }, [
+      _c("h5", { staticClass: "card-title" }, [_vm._v("Todo Task")]),
+      _vm._v(" "),
+      _c("p", { staticClass: "card-text" }, [
+        _c(
+          "ul",
+          { staticClass: "list-group" },
+          _vm._l(_vm.tasks, function(t) {
+            return _c("li", { staticClass: "list-group-item" }, [
+              _vm._v(
+                "\n                    " +
+                  _vm._s(t.id) +
+                  " " +
+                  _vm._s(t.tasks) +
+                  "\n                    "
+              ),
+              _vm._m(0, true)
+            ])
+          }),
+          0
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _vm._m(1)
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card" }, [
-      _c("div", { staticClass: "card-header bg-primary" }, [
-        _vm._v("\n        Header\n    ")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("h5", { staticClass: "card-title" }, [_vm._v("Todo Task")]),
-        _vm._v(" "),
-        _c("p", { staticClass: "card-text" }, [_vm._v("Content")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-footer text-right" }, [
-        _c("small", [_vm._v("Copyrights © 2019")])
-      ])
+    return _c("span", { staticClass: "float-right" }, [
+      _c(
+        "div",
+        {
+          staticClass: "btn-group",
+          attrs: { role: "group", "aria-label": "Button group" }
+        },
+        [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary btn-sm",
+              attrs: { type: "button" }
+            },
+            [_vm._v("Add Task")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "btn btn-danger btn-sm", attrs: { type: "button" } },
+            [_vm._v("Delete")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "btn btn-dark btn-sm", attrs: { type: "button" } },
+            [_vm._v("Preview")]
+          )
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-footer text-right" }, [
+      _c("small", [_vm._v("Copyrights © 2019")])
     ])
   }
 ]
