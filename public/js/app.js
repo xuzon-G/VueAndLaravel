@@ -1791,6 +1791,9 @@ Vue.component('addTask', __webpack_require__(/*! ./addModalComponent.vue */ "./r
       })["catch"](function (error) {
         return console.log(error);
       });
+    },
+    refreshRecord: function refreshRecord(record) {
+      this.task = record.data;
     }
   },
   created: function created() {
@@ -1837,9 +1840,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('AddModel mounted.');
+  },
+  data: function data() {
+    return {
+      record: ''
+    };
+  },
+  methods: {
+    addRecord: function addRecord() {
+      var _this = this;
+
+      axios.post('http://127.0.0.1:8000/tasks', {
+        'tasks': this.record
+      }).then(function (response) {
+        return _this.$emit('recordAdded', response.data);
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+      console.log("data added component loaded");
+    }
   }
 });
 
@@ -38615,7 +38640,7 @@ var render = function() {
       _vm._v(" "),
       _vm._m(1),
       _vm._v(" "),
-      _c("addTask")
+      _c("addTask", { on: { recordAdded: _vm.refreshRecord } })
     ],
     1
   )
@@ -38691,67 +38716,88 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade",
+      attrs: {
+        id: "addModal",
+        tabindex: "-1",
+        role: "dialog",
+        "aria-labelledby": "my-modal-title",
+        "aria-hidden": "true"
+      }
+    },
+    [
+      _c("div", { staticClass: "modal-dialog", attrs: { role: "document" } }, [
+        _c("div", { staticClass: "modal-content" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-body" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "name" } }, [_vm._v("Add New Task")]),
+              _vm._v(" "),
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.record,
+                    expression: "record"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { id: "name", name: "name", rows: "3" },
+                domProps: { value: _vm.record },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.record = $event.target.value
+                  }
+                }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-footer" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-success",
+                attrs: { type: "button" },
+                on: { click: _vm.addRecord }
+              },
+              [_vm._v("Save Changes")]
+            )
+          ])
+        ])
+      ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "addModal",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "my-modal-title",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _c("div", { staticClass: "modal-header" }, [
-                _c(
-                  "h5",
-                  {
-                    staticClass: "modal-title",
-                    attrs: { id: "my-modal-title" }
-                  },
-                  [_vm._v("Title")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "close",
-                    attrs: { "data-dismiss": "modal", "aria-label": "Close" }
-                  },
-                  [
-                    _c("span", { attrs: { "aria-hidden": "true" } }, [
-                      _vm._v("×")
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c("p", [_vm._v("Content")])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _vm._v("\n                Footer\n            ")
-              ])
-            ])
-          ]
-        )
-      ]
-    )
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "my-modal-title" } },
+        [_vm._v("Title")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: { "data-dismiss": "modal", "aria-label": "Close" }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
   }
 ]
 render._withStripped = true

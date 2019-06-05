@@ -9,10 +9,13 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Content</p>
+                <div class="form-group">
+                    <label for="name">Add New Task</label>
+                    <textarea id="name" class="form-control" name="name" rows="3" v-model="record"></textarea>
+                </div>
             </div>
             <div class="modal-footer">
-                Footer
+                <button class="btn btn-success" @click="addRecord" type="button">Save Changes</button>
             </div>
         </div>
     </div>
@@ -22,6 +25,23 @@
 export default {
     mounted() {
             console.log('AddModel mounted.');
+        },
+        data() {
+            return {
+                record:''
+            }
+        },
+        methods: {
+            addRecord:function()
+            {
+
+         axios.post('http://127.0.0.1:8000/tasks',{
+             'tasks':this.record
+         })
+       .then( (response)=>this.$emit('recordAdded',response.data))
+       .catch((error)=>console.log(error));
+       console.log("data added component loaded");
+            }
         },
 }
 

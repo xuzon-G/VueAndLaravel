@@ -28,7 +28,7 @@
         <small>Copyrights &copy; 2019</small>
     </div>
 
-            <addTask></addTask>
+            <addTask @recordAdded="refreshRecord"></addTask>
 
 </div>
 
@@ -49,7 +49,11 @@ data() {
         axios.get('http://127.0.0.1:8000/tasks?page='+page)
        .then( (response)=>this.tasks=response.data)
        .catch((error)=>console.log(error));
-		}
+        },
+        refreshRecord:function(record)
+        {
+            this.task=record.data;
+        }
 },
 created() {
    // console.log('task component loaded');
