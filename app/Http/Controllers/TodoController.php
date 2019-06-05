@@ -16,7 +16,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        $tasks=Todo::all();
+         $tasks=Todo::orderBy('created_at','desc')->paginate(5);
     return response()->json($tasks, 200);
     }
 
